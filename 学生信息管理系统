@@ -1,0 +1,75 @@
+#include<stdio.h> 
+#include<string.h>
+
+struct Student
+{
+	int stuId;
+	int stuAge;
+	char stuName[100];
+	
+	struct Student  *next;//存放下一个节点的地址 
+};
+
+void printStudent(struct Student* curP)
+{
+	printf("学号；%d  年龄；%d  姓名；%s\n",curP->stuId,curP->stuAge,curP->stuName) ;
+}
+
+int main()
+{
+	struct Student a,b,c,d;//定义学生节点
+	a.stuId =2199801;
+	a.stuAge =18;
+	strcpy(a.stuName,"肖剑锋") ;
+	
+	b.stuId =2199802;
+	b.stuAge =17;
+	strcpy(b.stuName,"蒋婷婷") ;
+	
+	c.stuId =2199803;
+	c.stuAge =18; 
+	strcpy(c.stuName,"刘艳艳") ;
+	
+	d.stuId =2199804;
+	d.stuAge =18;
+	strcpy(d.stuName,"然兮") ;
+	
+	
+	printf("a->b->c->d->NULL\n");
+	a.next =&b;
+	b.next =&c;
+	c.next =&d;
+	d.next =NULL;
+	
+	struct Student* curP=&a;
+	while(curP!=NULL)
+	{
+		printStudent(curP);
+		curP=curP->next;
+	}
+	
+	printf("请输入你想查询学生的学号；"); 
+	int StuId;
+	scanf("%d",&StuId);
+	curP=&a;
+	int flag=0;
+	while(curP!=NULL)
+	{
+		if(curP->stuId==StuId)
+		{
+			printStudent(curP);
+			flag=1;
+			break;
+		}
+		else
+	    {
+		curP=curP->next;
+		}
+	}
+	if(flag==0)
+	{
+		printf("对不起，查无此生\n");
+	}
+	 
+	return 0;
+}
